@@ -9,7 +9,7 @@ Responsive, buildless static marketing site for Backy by TacnIQ.ai.
 
 ## Preview
 
-Open `index.html` locally or visit the Render static site. The website uses plain HTML, CSS and JavaScript. The YouTube demo is embedded with the privacy-enhanced YouTube domain while a downloadable video file is unavailable.
+Open `index.html` locally or visit the Render static site. The website uses plain HTML, CSS and JavaScript. The Backy demo plays from a locally hosted MP4 in a landscape video frame; portrait footage stays letterboxed rather than cropped.
 
 ## Product information
 
