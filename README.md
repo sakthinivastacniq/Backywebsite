@@ -13,11 +13,11 @@ Open `index.html` locally or visit the Render static site. The website uses plai
 
 ## Product information
 
-The home page follows the uploaded TacnIQ.ai introduction deck. Selected pilot results are labeled as company-reported, with client names anonymised. The product specification table follows the details previously published on backy.ai. Product kit configuration should be confirmed with TacnIQ.ai before ordering.
+The home page follows the uploaded TacnIQ.ai introduction deck. Selected pilot results and the 5,112-hour deployment baseline are labeled as company-reported, with client names anonymised. The site has no live device-usage data feed, so the deployment count remains a verified baseline until a telemetry/API source is connected. The product specification table follows the details previously published on backy.ai. Product kit configuration should be confirmed with TacnIQ.ai before ordering.
 
 ## Images
 
-Workplace, wearable, hardware, accessory and dashboard images come from the supplied Backy introduction deck. The dashboard images are identified as product-introduction screenshots.
+The home hero uses the supplied full Backy-on-shift image; the product hero uses the Backy device panel from slide one. The TacnIQ.ai wordmark is also taken from slide one. Other workplace, wearable, hardware, accessory and dashboard images come from the supplied introduction deck.
 
 ## Competitor-informed design choices
 
