@@ -14,7 +14,7 @@ navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', 
 const gallery = document.querySelector('#product-gallery');
 if (gallery) {
   const slides = [
-    {src:'assets/backy-first-slide.webp',alt:'Backy wearable and feature callouts from the opening slide of the TacnIQ.ai introduction',caption:'Backy wearable · slide one'},
+    {src:'assets/backy-first-slide.webp',alt:'Backy wearable device with feature callouts',caption:'Backy wearable · feature overview'},
     {src:'assets/backy-on-shift-full.webp',alt:'Worker wearing Backy over a high-visibility vest, with haptic feedback waves shown around the device',caption:'Backy on shift'},
     {src:'assets/backy-unit.webp',alt:'Backy wearable sensor unit',caption:'Backy wearable unit'},
     {src:'assets/smart-dock.webp',alt:'Smart Dock for multi-device charging and syncing',caption:'Smart Dock · team setup'},
