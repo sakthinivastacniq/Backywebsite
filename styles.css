@@ -173,3 +173,38 @@ body{font-size:16px}
   .results-grid{grid-template-columns:1fr}.results-grid article,.results-grid article:last-child{border-right:0;border-bottom:1px solid #ffffff27;margin:0;padding:17px 0}.results-grid article:last-child{border-bottom:0}.results-grid strong{margin:11px 0 4px;font-size:40px}
   .hero-actions{flex-direction:column;align-items:flex-start;gap:17px}.pilot-timeline article{grid-template-columns:58px 34px 1fr}.timeline-line{left:75px}.pilot-timeline h3{font-size:15px}.footer-main{flex-wrap:wrap}.footer-links{width:100%;margin:0}.hardware-grid{grid-template-columns:1fr}.hardware-main{grid-column:auto}.hardware-card img{height:215px}.accessory-row{grid-template-columns:1fr 1fr}.accessory-row img{height:80px}.spec-row{grid-template-columns:1fr;gap:5px;padding:12px 0}.spec-row strong{font-size:14px}.software-options{grid-template-columns:1fr}.product-hero-image{height:300px}.footer-bottom{font-size:8px}
 }
+
+/* TacnIQ.ai slide-one branding */
+:root{--ink:#132238;--muted:#5c6c7a;--paper:#f4f5f2;--night:#10213a;--night2:#173255;--lime:#32afe2;--lime-dark:#188fc6;--blue:#2376b8;--line:#d7dfe5}
+.announcement{background:#10213a;color:#e0eaf1}
+.announcement a{color:#46bce9}
+.pulse,.live i{background:#35b7e7;box-shadow:0 0 0 4px #35b7e722}
+.nav-wrap{background:#f4f5f2ed}
+.brand{gap:12px;letter-spacing:0}
+.brand-logo{display:block;width:126px;height:auto;max-height:38px;object-fit:contain}
+.brand-product{padding-left:11px;border-left:1px solid #cbd8e3;color:#244a72;font:500 11px var(--mono);letter-spacing:.09em}
+.footer-brand{align-items:center}
+.footer-brand .brand-logo{width:112px}
+.nav-links a:hover,.text-link:hover,.footer-links a:hover{color:#167bb6}
+.nav-cta{background:#10213a}
+.nav-cta span,.button span{color:#54c6ef}
+.button-lime{background:#33b5e5;color:#092338}
+.button-lime:hover{background:#58c6ec}
+.button span{color:#155d8e}
+.hero h1 em,.section-intro h2 em,.section-heading h2 em,.pilot-heading h2 em,.final-cta h2 em,.problem-copy h2 em,.solution-copy h2 em,.results-heading h2 em,.industries-layout h2 em,.demo-copy h2 em,.product-hero h1 em,.spec-intro h2 em,.software-layout h2 em,.product-cta h2 em{color:#2376b8}
+.eyebrow-line{background:#2a82bd}
+.note-icon{color:#158fc7}
+.eyebrow-light .eyebrow-line{background:#38b9e5}
+.feature-number,.timeline-day,.card-index{color:#40b8e6}
+.results-grid strong,.problem-stats strong{color:#57c5eb}
+.results-grid .eyebrow-light,.section-dark .arrow-link{color:#c2eafa}
+.hero-slide-photo{height:520px;background:#e6e7e6;border-radius:10px;box-shadow:0 28px 54px #10213a20}
+.hero-slide-photo:after{background:linear-gradient(transparent 82%,#10213a86)}
+.hero-slide-photo img{object-fit:cover;object-position:center 70%}
+.hero-slide-photo figcaption span:first-child{color:#75d3f2}
+.hero-slide-photo figcaption span:last-child{font-size:15px}
+.spec-disclosure{border-left-color:#2c8bc3}
+.product-hero{background:#e9eef2}
+.product-cta{background:#e9eef2}
+@media(max-width:740px){.brand-logo{width:112px}.hero-slide-photo{height:480px}}
+@media(max-width:440px){.brand-logo{width:100px}.brand-product{font-size:9px;padding-left:8px}.hero-slide-photo{height:405px}}
