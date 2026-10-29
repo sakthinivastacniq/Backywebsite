@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101d28">
+  <meta name="theme-color" content="#10213a">
   <meta name="description" content="Explore Backy wearable hardware, software, accessories and technical specifications.">
   <title>Backy Product &amp; Specifications | TacnIQ.ai</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
       <a class="brand brand-tacniq" href="index.html" aria-label="TacnIQ.ai — Backy home"><img class="brand-logo" src="assets/tacniq-logo.png" alt="TacnIQ.ai"><span class="brand-product">BACKY™</span></a>
       <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
       <div class="nav-links" id="nav-links">
-        <a href="index.html#how">How it works</a><a href="index.html#industries">Industries</a><a class="active-link" href="product.html" aria-current="page">Product &amp; specs</a>
+        <a href="index.html#how">How it works</a><a href="index.html#industries">Industries</a><a class="active-link" href="product.html" aria-current="page">Product &amp; specs</a><a href="#pricing">Pricing</a>
         <a class="nav-cta" href="mailto:hello@tacniq.ai?subject=Backy%20product%20demo">Request a demo <span aria-hidden="true">↗</span></a>
       </div>
     </nav>
@@ -27,7 +27,11 @@
     <section class="product-hero">
       <div class="container product-hero-grid">
         <div><div class="eyebrow"><span class="eyebrow-line"></span> BACKY™ PRODUCT OVERVIEW</div><h1>Movement sensing<br><em>made for the shift.</em></h1><p>Backy is a lower-back wearable that senses posture and movement, gives haptic feedback during work and turns shift data into actionable safety insights.</p><div class="hero-actions"><a class="button button-lime" href="mailto:hello@tacniq.ai?subject=Backy%20product%20demo">Request a product demo <span>↗</span></a><a class="text-link" href="#specs">See technical specifications <span>↓</span></a></div></div>
-        <figure class="product-hero-image product-slide-image"><img src="assets/backy-first-slide.webp" alt="Backy wearable and feature callouts from the opening slide of the TacnIQ.ai introduction"></figure>
+        <figure class="product-hero-image product-gallery" id="product-gallery" aria-label="Backy product image gallery">
+          <img src="assets/backy-first-slide.webp" alt="Backy wearable and feature callouts from the opening slide of the TacnIQ.ai introduction" data-gallery-image>
+          <figcaption data-gallery-caption>Backy wearable · slide one</figcaption>
+          <div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Previous product image">←</button><div class="gallery-dots" role="group" aria-label="Choose a product image"><button type="button" data-gallery-index="0" aria-label="Show Backy introduction image" aria-pressed="true">01</button><button type="button" data-gallery-index="1" aria-label="Show Backy on shift" aria-pressed="false">02</button><button type="button" data-gallery-index="2" aria-label="Show Backy wearable unit" aria-pressed="false">03</button><button type="button" data-gallery-index="3" aria-label="Show Smart Dock" aria-pressed="false">04</button></div><button type="button" data-gallery-next aria-label="Next product image">→</button></div>
+        </figure>
       </div>
     </section>
 
@@ -39,6 +43,21 @@
           <article class="hardware-card"><img src="assets/smart-dock.webp" alt="Multi-device smart charging dock"><div><span>03 / TEAM SETUP</span><h3>Smart Dock</h3><p>Central charging and automatic syncing for multi-device deployments.</p></div></article>
         </div>
         <div class="accessory-row"><figure><img src="assets/backy-belt.webp" alt="Backy support belt"><figcaption>Neoprene support for extended wear</figcaption></figure><figure><img src="assets/safety-vest-addon.webp" alt="High visibility vest attachment for Backy"><figcaption>Safety-vest add-on for existing PPE</figcaption></figure><p>Accessories and pilot kit configuration are selected with the deployment team.</p></div>
+      </div>
+    </section>
+
+    <section class="pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> PRICING · USD</div><h2>Start with the kit.<br><em>Scale with insight.</em></h2></div><p>Pricing follows the product introduction. Volume pricing and custom configurations are available on request.</p></div>
+        <div class="hardware-price-card"><div><span class="plan-label">HARDWARE · ONE-TIME</span><h3>Backy unit</h3><p>Pressure-sensing wearable with belt and magnetic charging cable.</p></div><div class="price-amount"><strong>US$120</strong><span>per device · one-time</span></div><a class="button button-lime" href="mailto:hello@tacniq.ai?subject=Backy%20hardware%20pricing">Ask about a kit <span>↗</span></a></div>
+        <div class="software-pricing">
+          <div class="pricing-tabs" role="tablist" aria-label="Choose a Backy software plan"><button type="button" role="tab" aria-selected="true" aria-controls="backy-core-panel" data-price-tab="core">Backy Core</button><button type="button" role="tab" aria-selected="false" aria-controls="backy-ai-panel" data-price-tab="ai">Backy AI</button></div>
+          <div class="price-panels">
+            <article class="price-panel is-active" id="backy-core-panel" role="tabpanel" data-price-panel="core"><div><span class="plan-label">PILOT TESTING &amp; EVALUATION</span><h3>Backy Core</h3><p>Start with worker feedback and an individual view.</p></div><div class="price-amount"><strong>Free</strong><span>for pilot testing</span></div><ul><li>Real-time haptic feedback</li><li>Individual Back Stress Score</li><li>One-month Backy AI trial</li></ul></article>
+            <article class="price-panel" id="backy-ai-panel" role="tabpanel" data-price-panel="ai" hidden><div><span class="plan-label">TEAM DEPLOYMENTS</span><h3>Backy AI</h3><p>Team insight for ongoing workplace deployments.</p></div><div class="price-amount"><strong>US$10</strong><span>per device · per month</span></div><ul><li>Everything in Core</li><li>AI posture insights and team views</li><li>API access and monthly ergonomic report</li><li>Agentic AI prescriptions listed as forthcoming</li></ul></article>
+          </div>
+          <p class="pricing-note">Docks and accessories are quoted separately. The dock is provided for pilots. The Smart Dock is recommended for automatic syncing. All prices are in USD; volume pricing and custom quotes on request.</p>
+        </div>
       </div>
     </section>
 
@@ -65,8 +84,10 @@
     </section>
 
     <section class="software-section">
-      <div class="container software-layout"><div><div class="eyebrow"><span class="eyebrow-line"></span> SOFTWARE</div><h2>Start with the core.<br><em>Add insight as you scale.</em></h2><p>Backy software brings the worker feedback loop together with a view of ergonomic patterns for safety teams.</p><div class="software-options"><article><span>BACKY CORE</span><h3>For pilots and evaluation</h3><ul><li>Real-time haptic feedback</li><li>Individual Back Stress Score</li><li>One-month Backy AI evaluation</li></ul></article><article><span>BACKY AI</span><h3>For team deployments</h3><ul><li>AI posture insights and team views</li><li>Monthly ergonomic report</li><li>API access for integrations</li></ul></article></div></div><div class="dashboard-showcase"><img src="assets/backy-dashboard.webp" alt="Backy AI dashboard chart from the TacnIQ.ai product introduction"><img src="assets/backy-report.webp" alt="Backy dashboard summary showing team deployment metrics"><p>Dashboard images from the TacnIQ.ai product introduction.</p></div></div>
+      <div class="container software-layout"><div><div class="eyebrow"><span class="eyebrow-line"></span> SOFTWARE</div><h2>Start with the core.<br><em>Add insight as you scale.</em></h2><p>Backy software brings the worker feedback loop together with a view of ergonomic patterns for safety teams. <a class="inline-product-link" href="#pricing">View software pricing ↓</a></p><div class="software-options"><article><span>BACKY CORE</span><h3>For pilots and evaluation</h3><ul><li>Real-time haptic feedback</li><li>Individual Back Stress Score</li><li>One-month Backy AI evaluation</li></ul></article><article><span>BACKY AI</span><h3>For team deployments</h3><ul><li>AI posture insights and team views</li><li>Monthly ergonomic report</li><li>API access for integrations</li></ul></article></div></div><div class="dashboard-showcase"><img src="assets/backy-dashboard.webp" alt="Backy AI dashboard chart from the TacnIQ.ai product introduction"><img src="assets/backy-report.webp" alt="Backy dashboard summary showing team deployment metrics"><p>Dashboard images from the TacnIQ.ai product introduction.</p></div></div>
     </section>
+
+    <section class="rewards-section" id="rewards"><div class="container rewards-layout"><div><div class="eyebrow"><span class="eyebrow-line"></span> PROPOSED BACKY REWARDS</div><h2>Reward workers as risk falls.</h2><p>A positive programme concept from the introduction deck: use each worker’s baseline, celebrate safer habits and keep personal posture scores private.</p><div class="reward-steps"><article><span>01 · BASELINE</span><strong>Set a fair starting point</strong></article><article><span>02 · IMPROVE</span><strong>Recognise individual progress</strong></article><article><span>03 · REWARD</span><strong>Unlock wellness credits and team milestones</strong></article></div></div><div class="reward-demo" aria-label="Backy rewards concept preview"><div class="reward-demo-top"><span>TEAM WELLNESS</span><span>SAMPLE PREVIEW</span></div><strong>+240 <small>points</small></strong><div class="reward-progress"><span></span></div><p>Sample team progress · 18% fewer high-risk postures</p><button type="button" class="reward-action" aria-pressed="false">View reward ideas <span>＋</span></button><div class="reward-ideas" hidden>Wellness credits · team meal · recognition milestone</div></div></div></section>
 
     <section class="product-demo-strip"><div class="container"><div><div class="eyebrow eyebrow-light"><span class="eyebrow-line"></span> SEE THE DEVICE IN ACTION</div><h2>Watch the Backy demo</h2><p>See how Backy clips on, calibrates and gives a movement cue.</p></div><a class="button button-lime" href="index.html#demo">Watch the video <span>↗</span></a></div></section>
     <section class="product-cta"><div class="container product-cta-inner"><div><div class="eyebrow"><span class="eyebrow-line"></span> PILOT OR PRODUCT ENQUIRY</div><h2>Let’s find the right setup<br>for your team.</h2><p>Tell us about the work, the number of people and the safety question you want to answer.</p></div><a class="button button-lime" href="mailto:hello@tacniq.ai?subject=Backy%20product%20enquiry">Talk to TacnIQ.ai <span>↗</span></a></div></section>

@@ -5,7 +5,7 @@ Responsive, buildless static marketing site for Backy by TacnIQ.ai.
 ## Pages
 
 - `index.html` follows the product introduction flow: field experience, workplace problem, Backy system, signal-to-action process, selected pilot results, industry fit, demo video and a two-week pilot.
-- `product.html` covers the hardware system, accessories, technical specifications, software and product enquiry.
+- Product page follows the deck’s product sequence: hardware, USD pricing, specifications, software, proposed Backy Rewards, and enquiry. It includes manual slideshow and pricing-tab controls.
 
 ## Preview
 
@@ -13,7 +13,7 @@ Open `index.html` locally or visit the Render static site. The website uses plai
 
 ## Product information
 
-The home page follows the uploaded TacnIQ.ai introduction deck. Selected pilot results and the 5,112-hour deployment baseline are labeled as company-reported, with client names anonymised. The site has no live device-usage data feed, so the deployment count remains a verified baseline until a telemetry/API source is connected. The product specification table follows the details previously published on backy.ai. Product kit configuration should be confirmed with TacnIQ.ai before ordering.
+The home page follows the Backy story in the uploaded TacnIQ.ai introduction deck, including employer cost context, stakeholder outcomes, proposed rewards and the five-stage pilot flow. Selected pilot results and the 5,112-hour deployment baseline are labeled as company-reported, with client names anonymised. The site has no live device-usage data feed, so the deployment count remains a verified baseline until a telemetry/API source is connected. The product specification table follows the details previously published on backy.ai. Product kit configuration should be confirmed with TacnIQ.ai before ordering.
 
 ## Images
 
