@@ -10,6 +10,24 @@ navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', 
   navLinks.classList.remove('open');
 }));
 
+const mainNavLinks=[...document.querySelectorAll('.nav-links a')];
+const sectionNavLinks=mainNavLinks.filter((link)=>link.getAttribute('href')?.startsWith('#'));
+if(sectionNavLinks.length&&'IntersectionObserver' in window){
+  const navSections=sectionNavLinks.map((link)=>({link,section:document.querySelector(link.getAttribute('href'))})).filter((item)=>item.section);
+  const observer=new IntersectionObserver((entries)=>{
+    const visible=entries.filter((entry)=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible)return;
+    navSections.forEach(({link,section})=>{
+      const selected=section===visible.target;
+      link.classList.toggle('active-link',selected);
+      if(selected)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
+    });
+  },{rootMargin:'-20% 0px -65% 0px',threshold:[0,.15,.35,.6]});
+  navSections.forEach(({section})=>observer.observe(section));
+}
+const successNotice=document.querySelector('[data-form-success]');
+if(successNotice&&new URLSearchParams(window.location.search).has('submitted'))successNotice.hidden=false;
+
 
 const gallery = document.querySelector('#product-gallery');
 if (gallery) {
