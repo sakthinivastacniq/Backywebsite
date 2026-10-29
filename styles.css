@@ -312,6 +312,7 @@ body{font-size:16px}
 .pricing-section .section-heading h2 em{color:#50c2ed}
 .pricing-section .section-heading>p{color:#b4c5d2}
 .pricing-section .eyebrow{color:#b5d0df}
+.pricing-section .plan-label{color:#a6e5f7}
 .hardware-price-card{padding:30px 32px;background:#173255;border:1px solid #4bbce32e;border-radius:26px;box-shadow:0 18px 48px #06172b45}
 .hardware-price-card h3,.price-panel h3{color:#f3f8fb}
 .hardware-price-card p,.price-panel p{color:#c0d1df}
