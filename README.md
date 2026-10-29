@@ -5,11 +5,11 @@ Responsive, buildless static marketing site for Backy by TacnIQ.ai.
 ## Pages
 
 - `index.html` follows the product introduction flow: field experience, workplace problem, Backy system, signal-to-action process, selected pilot results, industry fit, demo video and a two-week pilot.
-- Product page follows the deck’s product sequence: hardware, USD pricing, specifications, software, proposed Backy Rewards, and enquiry. It includes manual slideshow and pricing-tab controls.
+- Product page follows the deck’s product sequence: hardware, USD pricing, specifications, software, proposed Backy Rewards, and enquiry. Its product image carousel supports automatic rotation, manual controls and reduced-motion preferences; pricing tabs remain interactive.
 
 ## Preview
 
-Open `index.html` locally or visit the Render static site. The website uses plain HTML, CSS and JavaScript. The YouTube demo is embedded with the privacy-enhanced YouTube domain.
+Open `index.html` locally or visit the Render static site. The website uses plain HTML, CSS and JavaScript. The YouTube demo is embedded with the privacy-enhanced YouTube domain while a downloadable video file is unavailable.
 
 ## Product information
 
@@ -17,7 +17,7 @@ The home page follows the Backy story in the uploaded TacnIQ.ai introduction dec
 
 ## Images
 
-The home hero uses the supplied full Backy-on-shift image; the product hero uses the Backy device panel from slide one. The TacnIQ.ai wordmark is also taken from slide one. Other workplace, wearable, hardware, accessory and dashboard images come from the supplied introduction deck.
+The home hero uses the supplied full Backy-on-shift image; the product hero gallery uses the Backy device panel from slide one and the new feature overview. The technical specifications panel uses the supplied Backy device photo. The TacnIQ.ai wordmark is also taken from slide one. Other workplace, wearable, hardware, accessory and dashboard images come from the supplied introduction deck.
 
 ## Competitor-informed design choices
 
