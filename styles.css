@@ -401,3 +401,14 @@ body{font-size:16px}
 .form-success{padding:12px 14px;border-radius:9px;background:#e7f5e9;color:#26613b;font-weight:700}
 @media(max-width:740px){.contact-layout{grid-template-columns:1fr;gap:35px}.contact-section{padding:55px 0 70px}.contact-copy{padding-top:0}.contact-copy>p{font-size:16px}.enquiry-form{padding:23px;border-radius:18px}}
 @media(max-width:440px){.form-grid{grid-template-columns:1fr}.form-wide{grid-column:auto}.enquiry-form{padding:19px}.contact-copy h1{font-size:43px}}
+
+/* Headquarters details and rewards panel contrast */
+.rewards-panel h3{color:#13212d}
+.footer-offices{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;padding:22px 0;border-top:1px solid #ffffff17;border-bottom:1px solid #ffffff17}
+.office-heading{display:flex;flex-direction:column;gap:9px}
+.office-heading span{font:11px var(--mono);letter-spacing:.1em;color:#65c7ed}
+.office-heading strong{font:600 18px var(--display);color:#f0f5f3}
+.footer-offices address{display:flex;flex-direction:column;gap:5px;font-style:normal;font-size:14px;line-height:1.5;color:#b8c7ca}
+.footer-offices address strong{margin-bottom:3px;font-size:15px;color:#f0f5f3}
+@media(max-width:740px){.footer-offices{grid-template-columns:1fr 1fr;gap:20px}.office-heading{grid-column:1/-1}}
+@media(max-width:440px){.footer-offices{grid-template-columns:1fr}.office-heading{grid-column:auto}}
