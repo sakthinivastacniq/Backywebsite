@@ -1,31 +1,28 @@
 # Backy website redesign
 
-A responsive, buildless static marketing-site concept for Backy by TacnIQ.ai.
+Responsive, buildless static marketing site for Backy by TacnIQ.ai.
 
-## Local preview
+## Pages
 
-Open `index.html` in a browser. The site uses plain HTML, CSS and JavaScript, with Google Fonts loaded remotely.
+- `index.html` follows the product introduction flow: field experience, workplace problem, Backy system, signal-to-action process, selected pilot results, industry fit, demo video and a two-week pilot.
+- `product.html` covers the hardware system, accessories, technical specifications, software and product enquiry.
 
-## Concept direction
+## Preview
 
-- Position Backy as workplace movement intelligence: immediate haptic coaching for workers, useful ergonomic patterns for safety and operations teams.
-- Lead with a focused workplace pilot instead of a consumer pre-order.
-- Keep the worker experience positive, private and non-punitive.
-- Show a sample dashboard as illustrative data, not a live product screenshot.
-- Use field-deployment proof points supplied in the Backy introduction brief.
+Open `index.html` locally or visit the Render static site. The website uses plain HTML, CSS and JavaScript. The YouTube demo is embedded with the privacy-enhanced YouTube domain.
 
-## Competitor-informed patterns
+## Product information
 
-A review of current [SoterCoach](https://www.soter.com/sotercoach), [SoterEHS](https://www.soter.com/ergonomic-assessment-software) and [Kinetic Reflex](https://kineticcomp.com/reflex-wearable) product pages found repeated emphasis on:
+The home page follows the uploaded TacnIQ.ai introduction deck. Selected pilot results are labeled as company-reported, with client names anonymised. The product specification table follows the details previously published on backy.ai. Product kit configuration should be confirmed with TacnIQ.ai before ordering.
 
-- instant wearable feedback while a worker is moving;
-- team dashboards and trends by job, shift or location;
-- translating risk signals into targeted coaching and operational changes;
-- making pilots and measurable outcomes easy to understand;
-- clear statements about what data is and is not collected.
+## Images
 
-This concept adopts those market conventions and differentiates Backy by explaining its real-time worker cue and its connection to physical AI/tactile data. It avoids competitor outcome claims and labels the dashboard visualization as illustrative.
+Workplace, wearable, hardware, accessory and dashboard images come from the supplied Backy introduction deck. The dashboard images are identified as product-introduction screenshots.
 
-## Before public launch
+## Competitor-informed design choices
 
-Review the deployment metrics, product capabilities and privacy wording against current approved public claims; replace the concept dashboard with an approved product capture; connect the contact CTA to the preferred sales workflow; and review SEO, privacy policy and analytics requirements.
+A review of [SoterCoach](https://www.soter.com/sotercoach), [SoterEHS](https://www.soter.com/ergonomic-assessment-software) and [Kinetic Reflex](https://kineticcomp.com/reflex-wearable) found repeated emphasis on in-shift wearable feedback, team-level risk trends, targeted coaching and outcome reporting. This site applies those conventions to Backy's movement-cue and tactile data story.
+
+## Before replacing backy.ai
+
+Confirm public pilot results and product claims, confirm current unit fit and battery specifications, review the demo-kit security wording, and replace or validate all enquiry destinations and legal pages.
