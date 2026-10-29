@@ -199,10 +199,9 @@ body{font-size:16px}
 .results-grid strong,.problem-stats strong{color:#57c5eb}
 .results-grid .eyebrow-light,.section-dark .arrow-link{color:#c2eafa}
 .hero-slide-photo{height:520px;background:#e6e7e6;border-radius:10px;box-shadow:0 28px 54px #10213a20}
-.hero-slide-photo:after{background:linear-gradient(transparent 82%,#10213a86)}
-.hero-slide-photo img{object-fit:cover;object-position:center 70%}
-.hero-slide-photo figcaption span:first-child{color:#75d3f2}
-.hero-slide-photo figcaption span:last-child{font-size:15px}
+.hero-slide-photo:after{display:none}
+.hero-slide-photo img{object-fit:contain;object-position:center}
+.hero-slide-photo figcaption{display:none}
 .spec-disclosure{border-left-color:#2c8bc3}
 .product-hero{background:#e9eef2}
 .product-cta{background:#e9eef2}
