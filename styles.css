@@ -597,3 +597,12 @@ body{font-size:16px;line-height:1.6}
 .demo-media .video-frame{width:min(100%,320px);aspect-ratio:9/16;margin:0 0 0 auto;justify-self:end}
 @media(max-width:740px){.demo-layout{grid-template-columns:1fr;gap:25px}.demo-media{justify-self:center;width:min(100%,390px)}.demo-media>.eyebrow{margin-left:0}.demo-media>h2{text-align:left;font-size:clamp(34px,9vw,42px)}.demo-media .video-frame{width:min(100%,310px);margin-left:0}.demo-copy{max-width:none;padding:21px}}
 @media(max-width:440px){.demo-section{padding:45px 0}.demo-layout{gap:18px}.demo-media .video-frame{width:min(100%,280px)}}
+
+
+/* Pull the demo group inward to close the gap beside its supporting copy */
+.demo-layout{gap:clamp(28px,3.2vw,46px)}
+.demo-media{justify-self:start}
+.demo-media>.eyebrow{margin-left:0}
+.demo-media>h2{text-align:left}
+.demo-media .video-frame{margin-left:0;margin-right:auto}
+@media(max-width:740px){.demo-layout{gap:25px}.demo-media{justify-self:center}.demo-media .video-frame{margin-left:0;margin-right:auto}}
