@@ -13,7 +13,7 @@
 .movement-guide-intro>p{max-width:720px;margin:0;color:#bdcdd8;font-size:15px;line-height:1.65}
 .movement-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .movement-guide-step{min-width:0;overflow:hidden;border-radius:18px;background:#e8f0f4;color:#132641}
-.movement-step-art{width:100%;aspect-ratio:3/4;background-image:url("assets/backy-how-it-works.webp?v=1");background-repeat:no-repeat;background-size:400% 100%;background-position:var(--panel-position) center;background-color:#e8f0f4}
+.movement-step-art{width:100%;aspect-ratio:543/560;overflow:hidden;background:#e8f0f4}.movement-step-art img{display:block;width:100%;height:100%;object-fit:cover}
 .movement-step-copy{padding:17px 17px 19px}
 .movement-step-number{display:block;color:#2376aa;font:500 11px var(--mono);letter-spacing:.08em}
 .movement-step-number i{font-style:normal;color:#617987}
@@ -26,4 +26,4 @@
 .movement-first-use p{margin:0;color:#b8c9d4;font-size:12px;line-height:1.55}
 @media(max-width:900px){.movement-guide{padding:24px}.movement-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.movement-first-use{grid-template-columns:1fr 1fr}.movement-first-use>div{grid-column:1/-1}}
 @media(max-width:520px){.movement-guide{padding:18px;border-radius:20px}.movement-guide-grid{gap:10px}.movement-guide-step{border-radius:14px}.movement-step-copy{padding:13px}.movement-step-copy h4{font-size:16px}.movement-step-copy p{font-size:12px}.movement-first-use{grid-template-columns:1fr;gap:11px;padding:15px}.movement-first-use>div{grid-column:auto}.movement-guide-intro>p{font-size:14px}}
-@media(max-width:360px){.movement-guide-grid{grid-template-columns:1fr}.movement-step-art{aspect-ratio:4/3;background-size:400% 100%}}
+@media(max-width:360px){.movement-guide-grid{grid-template-columns:1fr}.movement-step-art{aspect-ratio:543/560}}
