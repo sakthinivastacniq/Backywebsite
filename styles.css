@@ -561,3 +561,10 @@ body{font-size:16px;line-height:1.6}
 
 .proof-stat{color:#18354b}
 .proof-stat span{color:#18354b!important;opacity:1!important;text-shadow:none}
+
+/* Keep heading highlights within the phrase line and add navigation info bubbles */
+:is(.hero h1,.section-heading h2,.section-intro h2,.pilot-heading h2,.final-cta h2,.results-heading h2,.rewards-layout h2,.team-hero h1,.sustainability-hero h1) em{display:inline-block;vertical-align:baseline;line-height:inherit;padding:0 .1em;margin:0 -.1em;border-radius:.16em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.nav-links a[data-tip]{position:relative}
+.nav-links a[data-tip]::after{content:attr(data-tip);position:absolute;z-index:100;top:calc(100% + 13px);left:50%;width:210px;max-width:calc(100vw - 32px);padding:13px 15px;transform:translate(-50%,-4px);border:1px solid #2b83a8;border-radius:18px;background:#10213a;color:#e9f4f8;box-shadow:0 14px 34px #10213a2e;font:500 13px/1.45 var(--font);letter-spacing:0;text-align:left;white-space:normal;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,transform .16s ease,visibility .16s}
+.nav-links a[data-tip]:hover::after,.nav-links a[data-tip]:focus-visible::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
+@media(max-width:740px){.nav-links a[data-tip]::after{position:static;display:none;width:auto;max-width:none;margin-top:7px;transform:none;box-shadow:none}.nav-links a[data-tip]:hover::after,.nav-links a[data-tip]:focus-visible::after{display:block;transform:none}}
