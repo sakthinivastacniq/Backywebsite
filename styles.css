@@ -454,3 +454,6 @@ body{font-size:16px}
 @media(max-width:850px){.disclosure-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:740px){.team-grid{grid-template-columns:1fr 1fr}.team-section,.sustainability-detail{padding:60px 0}.sustainability-hero,.team-hero{padding:68px 0}.team-contact-band>.container,.sustainability-product-link>.container{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.team-grid,.disclosure-grid{grid-template-columns:1fr}.team-card{min-height:0}}
+
+/* Keep the expanded site footer tidy across screen sizes */
+.footer-links{flex-wrap:wrap}
