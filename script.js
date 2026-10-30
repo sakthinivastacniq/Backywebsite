@@ -99,3 +99,50 @@ if(movementCarousel){
  movementCarousel.addEventListener('focusin',()=>clearInterval(timer));movementCarousel.addEventListener('focusout',()=>setTimeout(sync,0));document.addEventListener('visibilitychange',sync);
  figures.forEach((el,i)=>el.setAttribute('aria-hidden',String(i!==0)));sync();
 }
+
+
+/* Auto-advancing four-step Backy instruction carousel */
+const guideCarousel=document.querySelector('#backy-steps-carousel');
+if(guideCarousel){
+  const slides=[...guideCarousel.querySelectorAll('[data-guide-slide]')];
+  const dots=[...guideCarousel.querySelectorAll('[data-guide-dot]')];
+  const status=guideCarousel.querySelector('[data-guide-status]');
+  const previous=guideCarousel.querySelector('[data-guide-prev]');
+  const next=guideCarousel.querySelector('[data-guide-next]');
+  const toggle=guideCarousel.querySelector('[data-guide-play]');
+  let active=0;
+  let autoAdvance=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let timer=null;
+  const showStep=(index)=>{
+    active=(index+slides.length)%slides.length;
+    slides.forEach((slide,i)=>{
+      slide.hidden=i!==active;
+      slide.setAttribute('aria-current',String(i===active));
+    });
+    dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===active)));
+    status.textContent='Step '+(active+1)+' of '+slides.length;
+  };
+  const syncTimer=()=>{
+    clearInterval(timer);
+    toggle.setAttribute('aria-pressed',String(autoAdvance));
+    toggle.setAttribute('aria-label',autoAdvance?'Pause automatic steps':'Play automatic steps');
+    toggle.textContent=autoAdvance?'Ⅱ':'▶';
+    if(autoAdvance&&!guideCarousel.matches(':hover')&&!guideCarousel.contains(document.activeElement)&&!document.hidden){
+      timer=setInterval(()=>showStep(active+1),6200);
+    }
+  };
+  previous.addEventListener('click',()=>{showStep(active-1);syncTimer();});
+  next.addEventListener('click',()=>{showStep(active+1);syncTimer();});
+  dots.forEach(dot=>dot.addEventListener('click',()=>{showStep(Number(dot.dataset.guideDot));syncTimer();}));
+  toggle.addEventListener('click',()=>{autoAdvance=!autoAdvance;syncTimer();});
+  guideCarousel.addEventListener('keydown',event=>{
+    if(event.key==='ArrowLeft'){showStep(active-1);syncTimer();}
+    if(event.key==='ArrowRight'){showStep(active+1);syncTimer();}
+  });
+  guideCarousel.addEventListener('mouseenter',()=>clearInterval(timer));
+  guideCarousel.addEventListener('mouseleave',syncTimer);
+  guideCarousel.addEventListener('focusin',()=>clearInterval(timer));
+  guideCarousel.addEventListener('focusout',()=>setTimeout(syncTimer,0));
+  document.addEventListener('visibilitychange',syncTimer);
+  syncTimer();
+}
