@@ -75,3 +75,27 @@ priceTabs.forEach((tab)=>tab.addEventListener('click',()=>{
 
 const rewardAction=document.querySelector('.reward-action');
 if(rewardAction){rewardAction.addEventListener('click',()=>{const ideas=document.querySelector('.reward-ideas');const open=rewardAction.getAttribute('aria-pressed')==='true';rewardAction.setAttribute('aria-pressed',String(!open));ideas.hidden=open;rewardAction.innerHTML=open?'View reward ideas <span>＋</span>':'Hide reward ideas <span>−</span>';});}
+
+
+const movementCarousel=document.querySelector('#movement-carousel');
+if(movementCarousel){
+ const figures=[...movementCarousel.querySelectorAll('[data-move-visual]')],steps=[...movementCarousel.querySelectorAll('[data-move-index]')];
+ const label=movementCarousel.querySelector('[data-move-label]'),title=movementCarousel.querySelector('[data-move-title]'),copy=movementCarousel.querySelector('[data-move-copy]'),status=movementCarousel.querySelector('[data-move-status] span'),counter=movementCarousel.querySelector('[data-move-current]'),toggle=movementCarousel.querySelector('[data-move-toggle]');
+ const slides=[
+  {label:'01 / NOTICE',title:'A bend becomes high-risk.',copy:'When a repeated bend reaches a configured risk threshold, Backy can highlight the movement pattern and prompt a timely reset.',status:'RISK PATTERN'},
+  {label:'02 / FEEL',title:'A discreet vibration cues a reset.',copy:'Backy gives the wearer a haptic cue at the moment it matters, without calling attention to them across the workplace.',status:'HAPTIC FEEDBACK'},
+  {label:'03 / RESET',title:'Pause. Reposition. Bring the load closer.',copy:'The worker can step closer, bend through the hips and knees, and set up the lift around the task.',status:'RESET POSITION'},
+  {label:'04 / LIFT',title:'Continue with a more neutral back.',copy:'A closer load and a steadier lift can reduce avoidable strain. The next pickup starts with a better setup.',status:'SAFER LIFT'}
+ ];
+ let current=0,timer,playing=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const show=(index)=>{current=(index+slides.length)%slides.length;figures.forEach((el,i)=>{el.classList.toggle('is-active',i===current);el.setAttribute('aria-hidden',String(i!==current));});steps.forEach((el,i)=>el.setAttribute('aria-pressed',String(i===current)));const s=slides[current];label.textContent=s.label;title.textContent=s.title;copy.textContent=s.copy;status.textContent=s.status;counter.textContent=String(current+1).padStart(2,'0');movementCarousel.dataset.activeStep=String(current);};
+ const sync=()=>{clearInterval(timer);toggle.setAttribute('aria-pressed',String(playing));toggle.setAttribute('aria-label',playing?'Pause movement sequence':'Play movement sequence');toggle.textContent=playing?'Ⅱ':'▶';if(playing&&!movementCarousel.matches(':hover')&&!movementCarousel.contains(document.activeElement)&&!document.hidden)timer=setInterval(()=>show(current+1),5600);};
+ steps.forEach(el=>el.addEventListener('click',()=>{show(Number(el.dataset.moveIndex));sync();}));
+ movementCarousel.querySelector('[data-move-prev]').addEventListener('click',()=>{show(current-1);sync();});
+ movementCarousel.querySelector('[data-move-next]').addEventListener('click',()=>{show(current+1);sync();});
+ toggle.addEventListener('click',()=>{playing=!playing;sync();});
+ movementCarousel.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){show(current-1);sync();}else if(e.key==='ArrowRight'){show(current+1);sync();}});
+ movementCarousel.addEventListener('mouseenter',()=>clearInterval(timer));movementCarousel.addEventListener('mouseleave',sync);
+ movementCarousel.addEventListener('focusin',()=>clearInterval(timer));movementCarousel.addEventListener('focusout',()=>setTimeout(sync,0));document.addEventListener('visibilitychange',sync);
+ figures.forEach((el,i)=>el.setAttribute('aria-hidden',String(i!==0)));sync();
+}
