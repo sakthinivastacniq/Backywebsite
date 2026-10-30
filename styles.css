@@ -558,3 +558,6 @@ body{font-size:16px;line-height:1.6}
 
 /* High-contrast labels inside light metric bubbles */
 .proof-stat span{font-size:14px;line-height:1.35;color:#456172;font-weight:600}
+
+.proof-stat{color:#18354b}
+.proof-stat span{color:#18354b!important;opacity:1!important;text-shadow:none}
