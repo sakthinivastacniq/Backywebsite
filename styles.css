@@ -606,3 +606,30 @@ body{font-size:16px;line-height:1.6}
 .demo-media>h2{text-align:left}
 .demo-media .video-frame{margin-left:0;margin-right:auto}
 @media(max-width:740px){.demo-layout{gap:25px}.demo-media{justify-self:center}.demo-media .video-frame{margin-left:0;margin-right:auto}}
+
+
+/* Product comparison and compact pilot overview */
+.comparison-section{padding:88px 0;background:#e8f0f4}
+.comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.comparison-card{padding:25px;background:#f8faf9;border:1px solid #d5e0e7;border-radius:22px;box-shadow:0 12px 28px rgba(16,33,58,.06)}
+.comparison-card>span{font:11px var(--mono);letter-spacing:.08em;color:#267ab5}
+.comparison-card h3{font:600 23px/1.2 var(--display);letter-spacing:-.04em;color:var(--ink);margin:14px 0 9px}
+.comparison-card>p,.comparison-edge p{font-size:14px;line-height:1.65;color:#60727e;margin:0}
+.comparison-edge{margin-top:20px;padding-top:16px;border-top:1px solid #d7e0e3}
+.comparison-edge strong{display:block;font:11px var(--mono);letter-spacing:.07em;color:#167caf;margin-bottom:7px}
+.comparison-note{font-size:12px;line-height:1.6;color:#718087;margin:18px 0 0}
+.contact-pilot{margin-top:26px;padding:21px;background:#132944;color:#eef4f5;border-radius:22px}
+.contact-pilot-heading{display:flex;flex-direction:column;gap:7px}
+.contact-pilot-heading>span{font:10px var(--mono);letter-spacing:.1em;color:#56c6e9}
+.contact-pilot-heading>strong{font:600 18px var(--display);letter-spacing:-.02em;color:#f3f6f4}
+.contact-pilot-steps{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:18px 0}
+.contact-pilot-steps article{border-left:2px solid #35b7e5;padding:1px 0 1px 11px}
+.contact-pilot-steps article>span{display:block;font:10px var(--mono);letter-spacing:.06em;color:#93b9cd;margin-bottom:6px}
+.contact-pilot-steps article>strong{display:block;font-size:15px;color:#fff;margin-bottom:4px}
+.contact-copy .contact-pilot .contact-pilot-steps p{font-size:12px;line-height:1.55;color:#c3d2da;margin:0}
+.contact-copy .contact-pilot .contact-pilot-target{padding-top:14px;margin:0;border-top:1px solid rgba(227,241,246,.2);font-size:13px;line-height:1.6;color:#dce9ed}
+.contact-pilot-target strong{color:#fff}
+.contact-pilot small{display:block;margin-top:9px;font-size:10px;line-height:1.5;color:#91a9b6}
+@media(max-width:900px){.comparison-grid{grid-template-columns:1fr 1fr}.comparison-card:last-child{grid-column:1/-1}}
+@media(max-width:740px){.comparison-section{padding:70px 0}.comparison-grid{grid-template-columns:1fr}.comparison-card:last-child{grid-column:auto}}
+@media(max-width:440px){.contact-pilot-steps{grid-template-columns:1fr}}
