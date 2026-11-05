@@ -139,7 +139,7 @@ body{font-size:16px}
 .software-options article>span{font-size:9px}
 .software-options h3{font:600 16px var(--display);margin:11px 0}
 .software-options ul{margin:0;padding-left:17px;color:#6b7b80;font-size:12px;line-height:1.8}
-.dashboard-showcase img{display:block;width:100%;height:auto;object-fit:contain;margin:0 0 13px;background:#fff;border:1px solid #dce4dc;border-radius:4px}
+.dashboard-showcase img,.dashboard-showcase video{display:block;width:100%;height:auto;object-fit:contain;margin:0 0 13px;background:#fff;border:1px solid #dce4dc;border-radius:4px}
 .dashboard-showcase p{font-size:10px;color:#879497;margin:6px 0}
 .product-demo-strip{padding:43px 0;background:#13232d;color:#eef3ed}
 .product-demo-strip .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
