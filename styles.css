@@ -640,3 +640,9 @@ body{font-size:16px;line-height:1.6}
 .dashboard-showcase-wide{width:100%;margin:38px auto 0}
 .dashboard-showcase-wide video{width:100%;max-height:80vh}
 @media(max-width:740px){.dashboard-showcase-wide{margin-top:28px}}
+
+
+/* LinkedIn profile icons on team cards */
+.team-linkedin-link{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin:0 0 10px;color:#0a66c2;transition:transform .18s ease,opacity .18s ease}
+.team-linkedin-link:hover{transform:translateY(-1px);opacity:.82}
+.team-linkedin-link svg{display:block;width:22px;height:22px}
