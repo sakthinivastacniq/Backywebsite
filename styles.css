@@ -633,3 +633,10 @@ body{font-size:16px;line-height:1.6}
 @media(max-width:900px){.comparison-grid{grid-template-columns:1fr 1fr}.comparison-card:last-child{grid-column:1/-1}}
 @media(max-width:740px){.comparison-section{padding:70px 0}.comparison-grid{grid-template-columns:1fr}.comparison-card:last-child{grid-column:auto}}
 @media(max-width:440px){.contact-pilot-steps{grid-template-columns:1fr}}
+
+
+/* Wide dashboard preview below software plans */
+.software-header-row .software-options{margin-top:0}
+.dashboard-showcase-wide{width:100%;margin:38px auto 0}
+.dashboard-showcase-wide video{width:100%;max-height:80vh}
+@media(max-width:740px){.dashboard-showcase-wide{margin-top:28px}}
