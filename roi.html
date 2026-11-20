@@ -176,7 +176,7 @@ const EP=5; // average working days per non-claim back episode
 const SCEN={cons:{name:"Conservative",p:10,s:0},exp:{name:"Expected",p:20,s:0.10},opt:{name:"Optimistic",p:30,s:0.25}};
 
 const C=[
- {id:"SG",physio:600,name:"Singapore",flag:"🇸🇬",cur:"SGD",sym:"S$",fx:1.30,conf:"Lower confidence",
+ {id:"SG",physio:600,name:"Singapore",flag:"🇸🇬",cur:"SGD",sym:"S$",fx:1.30,conf:"Country estimates",
   rate:3.5*0.25,days:14,day:160,claim:12000,admin:500,abs:0.10,
   src:[
    ["Physio and treatment per non-claim episode","S$600","Best","6 physio sessions plus GP visit at private clinics, typically covered by employer medical benefits"],
@@ -187,7 +187,7 @@ const C=[
    ["Claim cost per case","S$12,000","Best","WICA medical cap is S$53,000 from Nov 2025; that is a ceiling, not an average"],
    ["Admin cost per case","S$500","Best","Investigation and disruption, earlier Backy model"],
    ["Non-claim back absence","0.10 days / worker / yr","Best","Back-related MC days not filed under WICA"]]},
- {id:"US",physio:700,name:"United States",flag:"🇺🇸",cur:"USD",sym:"US$",fx:1,conf:"Medium confidence",
+ {id:"US",physio:700,name:"United States",flag:"🇺🇸",cur:"USD",sym:"US$",fx:1,conf:"Country estimates",
   rate:8*0.25,days:10,day:190,claim:40000,admin:1000,abs:0.05,
   src:[
    ["Physio and treatment per non-claim episode","US$700","Best","Employer health-plan share of ~8 outpatient physical-therapy sessions"],
@@ -198,7 +198,7 @@ const C=[
    ["Claim cost per case","US$40,000","Best","Typical lost-time workers’ comp claim (NCCI, all injury types)"],
    ["Admin cost per case","US$1,000","Best","OSHA Safety Pays indirect-cost approach"],
    ["Non-claim back absence","0.05 days / worker / yr","Best","Back absence without a comp claim"]]},
- {id:"AU",physio:450,name:"Australia",flag:"🇦🇺",cur:"AUD",sym:"A$",fx:1.53,conf:"Higher confidence",
+ {id:"AU",physio:450,name:"Australia",flag:"🇦🇺",cur:"AUD",sym:"A$",fx:1.53,conf:"Country estimates",
   rate:51800/14.5e6*1000*0.8,days:47.5,day:330,claim:21200,admin:800,abs:0.07,
   src:[
    ["Physio and treatment per non-claim episode","A$450","Best","Employer-funded early-intervention physio, ~5 sessions at ~A$90"],
@@ -266,7 +266,11 @@ function calc(c,w,scKey,perKey=S.per){
   const perW=R*caseCost+c.abs*m*(c.day+c.physio/EP);   // yearly savings per wearer at 100% reduction
   const f=fees(c), price=pe.ot*f.ot+12*f.mo*y;            // Backy cost per wearer for the period
   const sav=perW*P*y, gross=w*sav, cost=w*price, net=gross-cost;
-  return {gross,cost,net,roi:cost?net/cost*100:NaN,cases:w*R*P*y,days:w*(R*c.days+c.abs*m)*P*y,
+  const prevented=w*R*P*y, otherAbsDays=w*c.abs*m*P*y;
+  const downtime=prevented*c.days*c.day+otherAbsDays*c.day;
+  const retainedClaims=prevented*sh*c.claim;
+  const otherCosts=prevented*c.admin+otherAbsDays*c.physio/EP;
+  return {gross,cost,net,downtime,retainedClaims,otherCosts,roi:cost?net/cost*100:NaN,cases:prevented,days:prevented*c.days+otherAbsDays,
     baseline:w*perW*y,sav,price,beRed:perW>0?price/(perW*y)*100:Infinity,
     maxMo:(sav-pe.ot*f.ot)/(12*y),f};
 }
@@ -315,10 +319,10 @@ function render(){
   document.querySelectorAll("#scenSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===S.scen));
   document.querySelectorAll("#perSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===S.per));
   const pl=PER[S.per].name.toLowerCase();
-  const tot={cons:{g:0,c:0},exp:{g:0,c:0},opt:{g:0,c:0}}; let workers=0, cases=0, days=0, baseline=0;
+  const tot={cons:{g:0,c:0,d:0,k:0,o:0},exp:{g:0,c:0,d:0,k:0,o:0},opt:{g:0,c:0,d:0,k:0,o:0}}; let workers=0, cases=0, days=0, baseline=0;
   C.forEach(c=>{
     const w=S.workers[c.id]||0, row=$("row-"+c.id);
-    Object.keys(SCEN).forEach(k=>{const r=calc(c,w,k);tot[k].g+=r.gross/c.fx;tot[k].c+=r.cost/c.fx});
+    Object.keys(SCEN).forEach(k=>{const r=calc(c,w,k);tot[k].g+=r.gross/c.fx;tot[k].c+=r.cost/c.fx;tot[k].d+=r.downtime/c.fx;tot[k].k+=r.retainedClaims/c.fx;tot[k].o+=r.otherCosts/c.fx});
     row.classList.toggle("idle",!w);
     $("i-"+c.id).style.display=w?"none":"";
     if(!w)return;
@@ -328,6 +332,9 @@ function render(){
       <div><span>Cost of back injuries without Backy (${pl})</span><strong>${money(r.baseline,c.sym)}</strong></div>
       <div><span>Injury cases prevented</span><strong>${num(r.cases,2)}</strong></div>
       <div><span>Working days saved</span><strong>${num(r.days,1)}</strong></div>
+      <div><span>Downtime cost avoided</span><strong>${money(r.downtime,c.sym)}</strong></div>
+      <div><span>Employer-retained claim cost avoided</span><strong>${money(r.retainedClaims,c.sym)}</strong></div>
+      <div><span>Treatment and disruption costs avoided</span><strong>${money(r.otherCosts,c.sym)}</strong></div>
       <div><span>Gross savings</span><strong>${money(r.gross,c.sym)}</strong></div>
       <div><span>Backy cost (${money(r.f.ot,c.sym)} + ${money(r.f.mo,c.sym)}/mo per device)</span><strong>${money(r.cost,c.sym)}</strong></div>
       <div><span>Net savings</span><strong class="${cls}">${money(r.net,c.sym)}</strong></div>
@@ -350,6 +357,9 @@ function render(){
       <div><span>Workers wearing Backy</span><strong>${workers.toLocaleString("en")}</strong></div>
       <div><span>ROI</span><strong class="${cls}">${pct(roi)}</strong></div>
       <div><span>Gross savings</span><strong>${money(t.g,"US$")}</strong></div>
+      <div><span>Downtime saved</span><strong>${money(t.d,"US$")}</strong></div>
+      <div><span>Employer-retained claims saved</span><strong>${money(t.k,"US$")}</strong></div>
+      <div><span>Other costs avoided</span><strong>${money(t.o,"US$")}</strong></div>
       <div><span>Backy cost</span><strong>${money(t.c,"US$")}</strong></div>
       <div><span>Cases prevented</span><strong>${num(cases,2)}</strong></div>
       <div><span>Days saved</span><strong>${num(days,0)}</strong></div>
@@ -363,7 +373,7 @@ $("copy").onclick=async()=>{
   let lines=[`Backy ROI summary — ${sec}, ${PER[S.per].name}, ${SCEN[S.scen].name} scenario (${S.p[S.scen]}% assumed injury reduction). Pricing: US$${S.usdOt} one-time + US$${S.usdMo}/month per device; Singapore S$${S.sgdOt} + S$${S.sgdMo}/month`];
   let g=0,c=0;
   C.forEach(x=>{const w=S.workers[x.id]||0;if(!w)return;const r=calc(x,w,S.scen);g+=r.gross/x.fx;c+=r.cost/x.fx;
-    lines.push(`${x.name}: ${w} workers, savings ${money(r.gross,x.sym)}, cost ${money(r.cost,x.sym)}, net ${money(r.net,x.sym)}, ROI ${pct(r.roi)}, max monthly fee to break even ${r.maxMo>0?money(r.maxMo,x.sym):"below zero"}`)});
+    lines.push(`${x.name}: ${w} workers, savings ${money(r.gross,x.sym)}, cost ${money(r.cost,x.sym)}, net ${money(r.net,x.sym)}, downtime avoided ${money(r.downtime,x.sym)}, retained claims avoided ${money(r.retainedClaims,x.sym)}, other costs avoided ${money(r.otherCosts,x.sym)}, ROI ${pct(r.roi)}, max monthly fee to break even ${r.maxMo>0?money(r.maxMo,x.sym):"below zero"}`)});
   lines.push(`Total (USD, approx. FX): savings ${money(g,"US$")}, cost ${money(c,"US$")}, net ${money(g-c,"US$")}`);
   lines.push("Injury-reduction percentages and employer-retained claim costs are assumptions, not proven Backy outcomes.");
   const txt=lines.join("\n");
