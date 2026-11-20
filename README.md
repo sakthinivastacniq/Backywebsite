@@ -23,6 +23,7 @@ Responsive, buildless static marketing site for Backy by TacnIQ.ai.
 - An adjustable HRP-to-injury translation coefficient converts HRP improvement into a **hypothetical reduction in injury-frequency and nonclaim absence exposure**. No fixed conversion is independently validated. Never show the projection as demonstrated prevented claims.
 - Country policy premium references are from-price, jurisdiction-specific averages or broker estimates, **not comparable national quotes**. The calculation excludes unverified premium savings and separately shows employer-retained compensation, insurer claims and non-claim treatment bills to avoid double counting.
 - The landing-page ROI CTA points to this new industry comparison; the original country calculator, company-specific calculator, benchmarks and methodology remain accessible.
+- Customer-facing industry panels use **positive-ROI qualification**: positive projected net return and ROI figures appear only when the modeled net exceeds zero. Otherwise the panel displays a break-even annual avoidable loss requirement and a not-yet-demonstrated outcome, not a fabricated positive return. An optional positive-ROI-only filter excludes nonqualifying scenarios; the underlying calculations and original detailed calculators remain available for transparency.
 
 ## Preview
 
