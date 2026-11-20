@@ -16,6 +16,14 @@ Responsive, buildless static marketing site for Backy by TacnIQ.ai.
 - `roi-methodology.html` documents the formulas, selected official source links, country input provenance and assumptions. The home page links to the calculator via a business-impact panel.
 - Before using these figures in a binding quotation or external insurance claim, confirm current Backy prices, customer claims history, actual premium/deductible exposure, sector injury rates and evidence connecting Backy posture outcomes with later injuries.
 
+## Industry HRP impact dashboard (November 2026)
+
+- `roi-industries.html` compares six industry segments with independently selectable country/currency, baseline case-severity and insurance tariff assumptions for Singapore, United States, Australia (Queensland), Canada (British Columbia), UK, Germany and Netherlands.
+- The 67% logistics high-risk posture reduction is an **internally reported Backy behavior outcome**, not a claim reduction; other industry HRP inputs are explicitly hypothetical ranges.
+- An adjustable HRP-to-injury translation coefficient converts HRP improvement into a **hypothetical reduction in injury-frequency and nonclaim absence exposure**. No fixed conversion is independently validated. Never show the projection as demonstrated prevented claims.
+- Country policy premium references are from-price, jurisdiction-specific averages or broker estimates, **not comparable national quotes**. The calculation excludes unverified premium savings and separately shows employer-retained compensation, insurer claims and non-claim treatment bills to avoid double counting.
+- The landing-page ROI CTA points to this new industry comparison; the original country calculator, company-specific calculator, benchmarks and methodology remain accessible.
+
 ## Preview
 
 Open `index.html` locally or visit the Render static site. The website uses plain HTML, CSS and JavaScript. The Backy demo plays from a locally hosted MP4 in a landscape video frame; portrait footage stays letterboxed rather than cropped.
