@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Backy™ ROI dashboard | TacnIQ.ai</title>
+<meta name="description" content="Explore potential workplace back-injury and absence savings with Backy's country-specific financial ROI calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F4; --surface:#FFFFFF; --ink:#13203A; --muted:#5A6779; --line:#D5DBE3;
+  --hivis:#C4EC84; --hivis-soft:#EFF7E7; --gain:#0E7C5F; --gain-soft:#DDF2EA; --loss:#B23A26; --loss-soft:#F8E1DC;
+  --track:#E3E8EE; --focus:#2F6FEB;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1622; --surface:#172131; --ink:#E7ECF3; --muted:#9AA7B8; --line:#2A3649;
+    --hivis:#C4EC84; --hivis-soft:#263924; --gain:#43C59B; --gain-soft:#12352C; --loss:#F07A63; --loss-soft:#3D1C17;
+    --track:#243045; --focus:#7AA7FF; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1622; --surface:#172131; --ink:#E7ECF3; --muted:#9AA7B8; --line:#2A3649;
+  --hivis:#F5BE2A; --hivis-soft:#3A2F10; --gain:#43C59B; --gain-soft:#12352C; --loss:#F07A63; --loss-soft:#3D1C17;
+  --track:#243045; --focus:#7AA7FF; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,4vw,40px) 64px}
+h1{font-stretch:118%;font-weight:800;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.05;letter-spacing:-.01em;margin:0 0 .4em;max-width:18ch}
+h2{font-stretch:112%;font-weight:750;font-size:1.25rem;margin:0 0 .75rem}
+p{margin:0 0 1em;max-width:70ch}
+.lede{color:var(--muted);font-size:1.05rem}
+.stripe{height:10px;border-radius:2px;margin:0 0 28px;background:repeating-linear-gradient(-45deg,var(--hivis) 0 14px,var(--ink) 14px 28px);max-width:220px}
+
+.controls{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;margin:28px 0 24px}
+.field label,.field .lab{display:block;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+select,input[type=number]{font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;min-height:44px}
+select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-size:.95rem;border:0;background:transparent;color:var(--ink);padding:10px 14px;min-height:44px;cursor:pointer}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);font-weight:650}
+
+details.adv{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:0 16px;margin-bottom:28px}
+details.adv summary{cursor:pointer;padding:12px 0;font-weight:600}
+.adv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;padding:4px 0 16px}
+.adv-grid input{width:100%}
+.hint{font-size:.85rem;color:var(--muted)}
+
+.totals{background:var(--ink);color:var(--paper);border-radius:14px;padding:clamp(18px,3vw,28px);display:grid;grid-template-columns:1.3fr 1fr;gap:24px;margin-bottom:32px}
+.totals .big{font-stretch:120%;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);line-height:1}
+.totals .cap{opacity:.75;font-size:.9rem;margin-top:6px}
+.tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px}
+.tgrid div span{display:block;opacity:.7;font-size:.82rem}
+.tgrid div strong{font-size:1.15rem;font-weight:700}
+.scen-compare{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-top:1px solid color-mix(in srgb,var(--paper) 25%,transparent);padding-top:16px}
+.scen-compare div{font-size:.88rem}
+.scen-compare b{display:block;font-size:1.05rem}
+.pos{color:var(--gain)} .neg{color:var(--loss)}
+.totals .pos{color:#6FE0B8} .totals .neg{color:#FF9B86}
+
+.list{display:flex;flex-direction:column;gap:14px}
+.row{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start}
+.row.idle{opacity:.72}
+.row.idle .metrics,.row.idle .gauge{display:none}
+.country{display:flex;flex-direction:column;gap:8px}
+.cname{font-weight:700;font-stretch:110%;font-size:1.1rem}
+.conf{font-size:.78rem;padding:2px 8px;border-radius:999px;align-self:flex-start;border:1px solid var(--line);color:var(--muted)}
+.country input{width:100%}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px 16px}
+.metrics div span{display:block;font-size:.78rem;color:var(--muted)}
+.metrics div strong{font-size:1.02rem;font-weight:650}
+.gauge{grid-column:2;margin-top:2px}
+.gauge .bar{position:relative;height:14px;background:var(--track);border-radius:3px}
+.gauge .fill{position:absolute;inset:0 auto 0 0;border-radius:3px}
+.gauge .mark{position:absolute;top:-5px;bottom:-5px;width:3px;background:var(--ink);border-radius:2px}
+.gauge .legend{display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--muted);margin-top:7px;flex-wrap:wrap}
+.idle-note{grid-column:2;color:var(--muted);font-size:.9rem;align-self:center}
+
+.method{margin-top:44px}
+.formula{background:var(--surface);border-left:6px solid var(--hivis);padding:14px 18px;border-radius:0 10px 10px 0;margin:0 0 20px;font-size:.95rem;overflow-x:auto}
+.formula code{font-family:inherit;font-weight:600}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:760px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:650;color:var(--muted);font-size:.8rem}
+tr.ctry td{background:var(--hivis-soft);font-weight:700}
+.tag{font-size:.74rem;padding:1px 7px;border-radius:999px;white-space:nowrap}
+.tag.Official{background:var(--gain-soft);color:var(--gain)}
+.tag.Derived{background:var(--track);color:var(--ink)}
+.tag.Best{background:var(--loss-soft);color:var(--loss)}
+.caveat{background:var(--hivis-soft);border-radius:10px;padding:14px 18px;margin:20px 0;font-size:.95rem}
+.actions{display:flex;gap:12px;align-items:center;margin:8px 0 28px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:650;background:var(--hivis);color:#13203A;border:0;border-radius:10px;padding:11px 18px;min-height:44px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+
+@media (max-width:760px){
+  .totals{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .gauge,.idle-note{grid-column:1}
+  .scen-compare{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){ .gauge .fill{transition:width .35s ease} }
+
+.sitebar{background:#10202c;color:#ebf5ed}.sitebar-inner{max-width:1120px;margin:auto;padding:14px 25px;display:flex;align-items:center;justify-content:space-between;gap:20px}.sitebrand{display:flex;align-items:center;gap:10px;color:#c4ec84;font-weight:800;text-decoration:none;font-size:13px;letter-spacing:.08em}.sitebrand img{width:100px;max-height:36px;object-fit:contain}.sitenav{display:flex;flex-wrap:wrap;gap:20px}.sitenav a{color:#dce9e2;text-decoration:none;font-size:13px;font-weight:600}.sitenav a[aria-current]{color:#c4ec84}.intro .label{color:#287247;font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.intro h1{max-width:21ch;margin:10px 0 16px;font-size:clamp(2.2rem,4.5vw,3.8rem)}.intro .lede{max-width:830px;line-height:1.7}.actions-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:22px 0}.actions-row a{display:inline-block;padding:11px 16px;font-weight:800;border-radius:8px;text-decoration:none}.actions-row .primary{background:var(--hivis);color:#17263a}.actions-row .secondary{background:var(--surface);border:1px solid var(--line);color:var(--ink)}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.benefit{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:20px}.benefit small{font-size:12px;color:#327b4b;font-weight:800}.benefit h2{margin:8px 0;font-size:1.07rem}.benefit p{font-size:.92rem;color:var(--muted);margin:0}.method-link{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:20px;margin:25px 0;display:flex;gap:20px;justify-content:space-between;align-items:center}.method-link p{margin:5px 0 0;color:var(--muted);font-size:.93rem}.method-link a{color:#287247;font-weight:800}.teaser{border:1px solid var(--line);background:var(--surface);border-radius:13px;margin-top:46px;padding:22px}.teaser p{color:var(--muted)}.site-foot{border-top:1px solid var(--line);margin-top:25px;padding-top:18px;color:var(--muted);font-size:.85rem}.site-foot a{color:#287247}.trust{background:var(--hivis-soft);padding:13px 17px;border-radius:9px;margin-top:-12px;margin-bottom:25px;font-size:.91rem}.trust a{color:#287247;font-weight:800}a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}@media(max-width:760px){.sitebar-inner{flex-direction:column;align-items:flex-start;gap:12px}.sitenav{gap:12px}.benefits{grid-template-columns:1fr}.method-link{align-items:flex-start;flex-direction:column}.intro h1{font-size:2.35rem}}
+</style>
+</head>
+<body>
+<header class="sitebar"><div class="sitebar-inner"><a class="sitebrand" href="index.html"><img src="assets/tacniq-logo.png" alt="TacnIQ.ai">BACKY™ ROI</a><nav class="sitenav"><a href="index.html">Backy home</a><a href="roi.html" aria-current="page">ROI calculator</a><a href="roi-methodology.html">Formulas &amp; sources</a></nav></div></header>
+<main class="wrap">
+<section class="intro"><div class="label">Backy™ · Workplace financial impact</div><h1>What could safer movement save your business?</h1><p class="lede">Backy is a lower-back wearable that uses real-time vibration cues to help workers recognise and adjust high-risk bending or lifting. Reducing this exposure may help prevent strain over time. Use this calculator to explore what <strong>fewer back-related absences and employer-paid injury costs</strong> could mean for your business.</p><div class="actions-row"><a class="primary" href="#model">Calculate potential savings ↓</a><a class="secondary" href="roi-methodology.html">See the formulas &amp; evidence ↗</a></div></section>
+<section class="benefits"><article class="benefit"><small>01 / WORKER SAFETY</small><h2>In-shift posture feedback</h2><p>Discreet haptic reminders give workers a chance to adjust posture during everyday manual tasks.</p></article><article class="benefit"><small>02 / OPERATIONAL VALUE</small><h2>Potentially fewer lost days</h2><p>Lower injury frequency could reduce replacement labour, absence, investigation and disruption.</p></article><article class="benefit"><small>03 / FINANCIAL CASE</small><h2>Translate risk into ROI</h2><p>Compare possible employer cost avoidance against Backy devices and the recurring dashboard fee.</p></article></section>
+<div class="method-link"><div><strong>How to use this dashboard</strong><p>Choose a sector, time period and scenario. Enter the number of Backy wearers by country. Results use a combination of public benchmarks and <strong>illustrative assumptions</strong>, not a guaranteed reduction in injuries.</p></div><a href="roi-methodology.html">How are savings calculated? ↗</a></div>
+
+  <section class="controls" id="model" aria-label="Model settings">
+    <div class="field">
+      <label for="sector">Your workforce type</label>
+      <select id="sector"></select>
+    </div>
+    <div class="field">
+      <span class="lab" id="scenLab">Scenario</span>
+      <div class="seg" role="group" aria-labelledby="scenLab" id="scenSeg"></div>
+    </div>
+    <div class="field">
+      <span class="lab" id="perLab">Time period</span>
+      <div class="seg" role="group" aria-labelledby="perLab" id="perSeg"></div>
+    </div>
+  </section>
+
+  <details class="adv">
+    <summary>Adjust pricing, injury reduction and employer-retained claim costs</summary>
+    <div class="adv-grid">
+      <div class="field"><label for="usdOt">One-time fee per device (USD)</label><input id="usdOt" type="number" min="0" step="1"><div class="hint">Used for all non-Singapore countries, converted to local currency</div></div>
+      <div class="field"><label for="usdMo">Dashboard fee per device per month (USD)</label><input id="usdMo" type="number" min="0" step="0.5"></div>
+      <div class="field"><label for="sgdOt">One-time fee per device (SGD)</label><input id="sgdOt" type="number" min="0" step="1"><div class="hint">Singapore pricing</div></div>
+      <div class="field"><label for="sgdMo">Dashboard fee per device per month (SGD)</label><input id="sgdMo" type="number" min="0" step="0.5"></div>
+      <div class="field"><label for="pc">Conservative injury reduction (%)</label><input id="pc" type="number" min="0" max="100" step="1"></div>
+      <div class="field"><label for="pe">Expected injury reduction (%)</label><input id="pe" type="number" min="0" max="100" step="1"></div>
+      <div class="field"><label for="po">Optimistic injury reduction (%)</label><input id="po" type="number" min="0" max="100" step="1"></div><div class="field"><label for="retained">Employer-paid share of insured claim (%)</label><input id="retained" type="number" min="0" max="100" step="1"><div class="hint">Company deductible or uninsured share. Replace with actual broker/insurer data.</div></div>
+    </div>
+    <div class="actions" style="margin-top:0"><button class="btn ghost" id="reset" type="button">Restore defaults</button></div>
+  </details>
+
+  <section class="totals" aria-live="polite" id="totals"></section><p class="trust"><strong>Planning estimate, not a guaranteed saving.</strong> Injury-reduction percentages, sector adjustments, cost inputs and employer insurance exposure require validation. <a href="roi-methodology.html">Read the assumptions &amp; limitations ↗</a></p>
+
+  <h2>Countries</h2>
+  <div class="list" id="list"></div>
+
+  <div class="actions" style="margin-top:22px">
+    <button class="btn" id="copy" type="button">Copy summary</button>
+    <span class="hint" id="copyMsg"></span>
+  </div>
+
+  <section class="teaser"><h2>Evidence and calculation method</h2><p>Need to explain the ROI to finance, safety or an insurer? Our separate methodology page contains the formulas for claim reductions, absence, employer-paid costs, break-even pricing and each country's benchmark assumptions. This also makes it easier to tailor the proposal to the customer's actual records.</p><div class="actions-row"><a class="primary" href="roi-methodology.html">View formulas and sources ↗</a><a class="secondary" href="contact.html">Speak with the Backy team ↗</a></div></section><table id="srcTable" hidden><tbody></tbody></table><p class="site-foot">Backy™ by TacnIQ.ai · Illustrative scenario model, not a financial guarantee. <a href="roi-methodology.html">Methodology</a> · <a href="index.html">Backy home</a></p>
+</main>
+
+<script>
+const SECTORS=[
+ {id:"logistics",name:"Logistics and warehousing",m:2.2},
+ {id:"healthcare",name:"Healthcare and aged care",m:2.0},
+ {id:"construction",name:"Construction",m:1.8},
+ {id:"manufacturing",name:"Manufacturing",m:1.5},
+ {id:"retail",name:"Retail and hospitality",m:1.2},
+ {id:"all",name:"National average (all industries)",m:1.0}
+];
+const PER={y1:{name:"Year 1",yrs:1,ot:1},on:{name:"Each later year",yrs:1,ot:0},y3:{name:"3 years",yrs:3,ot:1}};
+const EP=5; // average working days per non-claim back episode
+const SCEN={cons:{name:"Conservative",p:10,s:0},exp:{name:"Expected",p:20,s:0.10},opt:{name:"Optimistic",p:30,s:0.25}};
+
+const C=[
+ {id:"SG",physio:600,name:"Singapore",flag:"🇸🇬",cur:"SGD",sym:"S$",fx:1.30,conf:"Lower confidence",
+  rate:3.5*0.25,days:14,day:160,claim:12000,admin:500,abs:0.10,
+  src:[
+   ["Physio and treatment per non-claim episode","S$600","Best","6 physio sessions plus GP visit at private clinics, typically covered by employer medical benefits"],
+   ["Claim rate (all injuries)","3.5 per 1,000","Best","Approx. MOM Workplace Safety & Health reported injury rate; verify against latest MOM report"],
+   ["Share that is back / manual-handling","25%","Best","MOM: 91% of reported WRMSDs (2020–H1 2024) were back injuries; share of all injuries assumed"],
+   ["Days lost per case","14","Best","Working assumption from earlier Backy model"],
+   ["Daily cost of a lost day","S$160","Best","Manual-worker daily earnings, MOM wage data (approx.)"],
+   ["Claim cost per case","S$12,000","Best","WICA medical cap is S$53,000 from Nov 2025; that is a ceiling, not an average"],
+   ["Admin cost per case","S$500","Best","Investigation and disruption, earlier Backy model"],
+   ["Non-claim back absence","0.10 days / worker / yr","Best","Back-related MC days not filed under WICA"]]},
+ {id:"US",physio:700,name:"United States",flag:"🇺🇸",cur:"USD",sym:"US$",fx:1,conf:"Medium confidence",
+  rate:8*0.25,days:10,day:190,claim:40000,admin:1000,abs:0.05,
+  src:[
+   ["Physio and treatment per non-claim episode","US$700","Best","Employer health-plan share of ~8 outpatient physical-therapy sessions"],
+   ["Claim rate (all injuries)","8 per 1,000","Official","BLS 2025: 0.8 days-away-from-work cases per 100 FTE"],
+   ["Share that is back / manual-handling","25%","Derived","BLS case circumstances: overexertion and back cases as share of days-away cases"],
+   ["Days lost per case","10","Best","Near BLS median days away for strain cases"],
+   ["Daily cost of a lost day","US$190","Best","BLS wages for material-moving occupations (approx.)"],
+   ["Claim cost per case","US$40,000","Best","Typical lost-time workers’ comp claim (NCCI, all injury types)"],
+   ["Admin cost per case","US$1,000","Best","OSHA Safety Pays indirect-cost approach"],
+   ["Non-claim back absence","0.05 days / worker / yr","Best","Back absence without a comp claim"]]},
+ {id:"AU",physio:450,name:"Australia",flag:"🇦🇺",cur:"AUD",sym:"A$",fx:1.53,conf:"Higher confidence",
+  rate:51800/14.5e6*1000*0.8,days:47.5,day:330,claim:21200,admin:800,abs:0.07,
+  src:[
+   ["Physio and treatment per non-claim episode","A$450","Best","Employer-funded early-intervention physio, ~5 sessions at ~A$90"],
+   ["Serious body-stressing claims","51,800 (2024–25)","Official","Safe Work Australia; ÷ ~14.5M employed (ABS) = 3.6 per 1,000"],
+   ["Share that is back / bending-lifting","80%","Best","Back and trunk share of body-stressing claims"],
+   ["Days lost per case","47.5","Official","Median 9.5 weeks lost per serious claim × 5 days"],
+   ["Daily cost of a lost day","A$330","Best","ABS average weekly earnings, adjusted for manual roles"],
+   ["Claim cost per case","A$21,200","Official","Median compensation per serious body-stressing claim, 2024–25"],
+   ["Admin cost per case","A$800","Best","Investigation, return-to-work coordination"],
+   ["Non-claim back absence","0.07 days / worker / yr","Best","Short absences below the serious-claim threshold"]]},
+ {id:"CA",physio:500,name:"Canada",flag:"🇨🇦",cur:"CAD",sym:"C$",fx:1.38,conf:"Medium confidence",
+  rate:267199/20.5e6*1000*0.25,days:30,day:230,claim:30000,admin:800,abs:0.05,
+  src:[
+   ["Physio and treatment per non-claim episode","C$500","Best","Extended health benefits physiotherapy, ~5 sessions at ~C$100"],
+   ["Accepted lost-time claims","267,199 (2024)","Official","AWCBC, all injury types; ÷ ~20.5M employed = 13.0 per 1,000"],
+   ["Share that is back / manual-handling","25%","Best","Back strains as share of lost-time claims"],
+   ["Days lost per case","30","Best","Typical provincial lost-time duration"],
+   ["Daily cost of a lost day","C$230","Best","Statistics Canada earnings, adjusted for manual roles"],
+   ["Claim cost per case","C$30,000","Best","Provincial board lost-time claim costs vary widely"],
+   ["Admin cost per case","C$800","Best","Investigation, modified-duty coordination"],
+   ["Non-claim back absence","0.05 days / worker / yr","Best","Back absence without a board claim"]]},
+ {id:"UK",physio:300,name:"United Kingdom",flag:"🇬🇧",cur:"GBP",sym:"£",fx:0.76,conf:"Medium confidence",
+  rate:0,days:0,day:120,claim:0,admin:0,abs:7.1e6/33e6*0.4,
+  src:[
+   ["Physio and treatment per non-claim episode","£300","Best","Employer-funded occupational-health physio, ~5 sessions at ~£60"],
+   ["MSD working days lost","7.1M (2024/25)","Official","HSE; ÷ ~33M workers = 0.22 days per worker"],
+   ["Share of MSD days that are back","40%","Best","HSE splits back, upper-limb and lower-limb cases"],
+   ["Days lost per back case","13.2","Official","HSE 2024/25, shown for reference"],
+   ["Daily cost of a lost day","£120","Best","ONS earnings for manual roles, employer sick pay and cover"],
+   ["Claims stream","Not applied","Derived","No workers’ comp system; employer’s liability claims excluded"]]},
+ {id:"DE",physio:0,name:"Germany",flag:"🇩🇪",cur:"EUR",sym:"€",fx:0.88,conf:"Medium confidence",
+  rate:0,days:0,day:26.1e9/171.3e6,claim:0,admin:0,abs:171.3e6/46e6*0.45*0.35,
+  src:[
+   ["Physio and treatment per non-claim episode","€0","Best","Treatment covered by statutory health insurance, not the employer"],
+   ["MSD sick days","171.3M (2024)","Official","BAuA; ÷ ~46M employees = 3.7 days per employee"],
+   ["Share that is back","45%","Best","Back conditions as share of MSD sick days"],
+   ["Share addressable at work","35%","Best","BAuA figures cover all MSD absence, not only work-caused"],
+   ["Daily cost of a lost day","€152","Derived","BAuA €26.1bn lost production ÷ 171.3M days"],
+   ["Claims stream","Not applied","Derived","Employer pays sick wages for 6 weeks; MSDs rarely recognised as occupational disease"]]},
+ {id:"NL",physio:450,name:"Netherlands",flag:"🇳🇱",cur:"EUR",sym:"€",fx:0.88,conf:"Higher confidence",
+  rate:0,days:0,day:230,claim:0,admin:0,abs:(2.2e9/9.3e6)/230*0.5,
+  src:[
+   ["Physio and treatment per non-claim episode","€450","Best","Occupational-health service (arbodienst) case management and physio, employer-funded"],
+   ["Employer-paid wages, work-related MSD absence","€2.2bn (2024 data)","Official","TNO; ÷ ~9.3M employees ≈ €237 per employee"],
+   ["Share that is back","50%","Best","Back conditions as share of work-related MSD"],
+   ["Daily cost of a lost day","€230","Best","Average daily wage; employers pay sick wages for up to 2 years"],
+   ["Claims stream","Not applied","Derived","No separate workers’ comp; cost sits with employer sick pay"]]}
+];
+
+const DEF={workers:{SG:500,US:0,AU:0,CA:0,UK:0,DE:0,NL:0},sector:"logistics",scen:"exp",per:"y3",retained:10,usdOt:120,usdMo:10,sgdOt:150,sgdMo:13,p:{cons:10,exp:20,opt:30}};
+const KEY="backy-roi-v3";
+let S=JSON.parse(JSON.stringify(DEF));
+try{const v=localStorage.getItem(KEY); if(v){const o=JSON.parse(v); S={...S,...o,workers:{...S.workers,...(o.workers||{})},p:{...S.p,...(o.p||{})}};}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const $=id=>document.getElementById(id);
+function money(v,sym){const a=Math.abs(v);const d=a<100?1:0;const s=a.toLocaleString("en",{minimumFractionDigits:0,maximumFractionDigits:d});return (v<0?"−":"")+sym+s}
+function pct(v){if(!isFinite(v))return "—";return (v<0?"−":"")+Math.abs(v).toLocaleString("en",{maximumFractionDigits:1})+"%"}
+function num(v,d=1){return v.toLocaleString("en",{maximumFractionDigits:d})}
+
+function fees(c){return c.id==="SG"?{ot:S.sgdOt,mo:S.sgdMo}:{ot:S.usdOt*c.fx,mo:S.usdMo*c.fx}}
+function calc(c,w,scKey,perKey=S.per){
+  const m=SECTORS.find(s=>s.id===S.sector).m, P=S.p[scKey]/100, sh=S.retained/100, pe=PER[perKey], y=pe.yrs;
+  const R=c.rate*m/1000, caseCost=c.days*c.day+sh*c.claim+c.admin;
+  const perW=R*caseCost+c.abs*m*(c.day+c.physio/EP);   // yearly savings per wearer at 100% reduction
+  const f=fees(c), price=pe.ot*f.ot+12*f.mo*y;            // Backy cost per wearer for the period
+  const sav=perW*P*y, gross=w*sav, cost=w*price, net=gross-cost;
+  return {gross,cost,net,roi:cost?net/cost*100:NaN,cases:w*R*P*y,days:w*(R*c.days+c.abs*m)*P*y,
+    baseline:w*perW*y,sav,price,beRed:perW>0?price/(perW*y)*100:Infinity,
+    maxMo:(sav-pe.ot*f.ot)/(12*y),f};
+}
+
+function initControls(){
+  $("sector").innerHTML=SECTORS.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");
+  $("sector").value=S.sector;
+  $("sector").onchange=e=>{S.sector=e.target.value;save();render()};
+  $("scenSeg").innerHTML=Object.entries(SCEN).map(([k,v])=>`<button type="button" data-k="${k}">${v.name}</button>`).join("");
+  $("scenSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.scen=b.dataset.k;save();render()};
+  $("perSeg").innerHTML=Object.entries(PER).map(([k,v])=>`<button type="button" data-k="${k}">${v.name}</button>`).join("");
+  $("perSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.per=b.dataset.k;save();render()};
+  const bind=(id,get,set)=>{const el=$(id);el.value=get();el.oninput=()=>{const v=parseFloat(el.value);if(!isNaN(v)&&v>=0){set(v);save();render()}}};
+  bind("usdOt",()=>S.usdOt,v=>S.usdOt=v);
+  bind("usdMo",()=>S.usdMo,v=>S.usdMo=v);
+  bind("sgdOt",()=>S.sgdOt,v=>S.sgdOt=v);
+  bind("sgdMo",()=>S.sgdMo,v=>S.sgdMo=v);
+  bind("pc",()=>S.p.cons,v=>S.p.cons=Math.min(v,100));
+  bind("pe",()=>S.p.exp,v=>S.p.exp=Math.min(v,100));
+  bind("po",()=>S.p.opt,v=>S.p.opt=Math.min(v,100));
+  bind("retained",()=>S.retained,v=>S.retained=Math.min(v,100));
+  $("reset").onclick=()=>{const w=S.workers;S=JSON.parse(JSON.stringify(DEF));S.workers=w;save();
+    ["usdOt","usdMo","sgdOt","sgdMo"].forEach(k=>$(k).value=S[k]);$("pc").value=S.p.cons;$("pe").value=S.p.exp;$("po").value=S.p.opt;$("retained").value=S.retained;$("sector").value=S.sector;render()};
+
+  $("list").innerHTML=C.map(c=>`
+   <article class="row" id="row-${c.id}">
+     <div class="country">
+       <div class="cname">${c.flag} ${c.name}</div>
+       <span class="conf">${c.conf}</span>
+       <label class="hint" for="w-${c.id}">Workers wearing Backy</label>
+       <input id="w-${c.id}" type="number" min="0" step="10" inputmode="numeric" value="${S.workers[c.id]||0}">
+     </div>
+     <div class="metrics" id="m-${c.id}"></div>
+     <div class="idle-note" id="i-${c.id}">Enter a number of workers to calculate ${c.name}.</div>
+     <div class="gauge" id="g-${c.id}"></div>
+   </article>`).join("");
+  C.forEach(c=>{$("w-"+c.id).oninput=e=>{const v=Math.max(0,Math.round(parseFloat(e.target.value)||0));S.workers[c.id]=v;save();render()}});
+
+  $("srcTable").querySelector("tbody").innerHTML=C.map(c=>
+    `<tr class="ctry"><td colspan="4">${c.flag} ${c.name} (${c.cur}, ≈${c.fx} per USD)</td></tr>`+
+    `<tr><td>Backy pricing</td><td>${c.id==="SG"?"S$150 one-time + S$13 / month":"US$120 one-time + US$10 / month, converted"}</td><td><span class="tag Official">Official</span></td><td>Backy price list, per device</td></tr>`+
+    c.src.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td><span class="tag ${r[2]}">${r[2]==="Best"?"Best estimate":r[2]}</span></td><td>${r[3]}</td></tr>`).join("")).join("");
+}
+
+function render(){
+  document.querySelectorAll("#scenSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===S.scen));
+  document.querySelectorAll("#perSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===S.per));
+  const pl=PER[S.per].name.toLowerCase();
+  const tot={cons:{g:0,c:0},exp:{g:0,c:0},opt:{g:0,c:0}}; let workers=0, cases=0, days=0, baseline=0;
+  C.forEach(c=>{
+    const w=S.workers[c.id]||0, row=$("row-"+c.id);
+    Object.keys(SCEN).forEach(k=>{const r=calc(c,w,k);tot[k].g+=r.gross/c.fx;tot[k].c+=r.cost/c.fx});
+    row.classList.toggle("idle",!w);
+    $("i-"+c.id).style.display=w?"none":"";
+    if(!w)return;
+    const r=calc(c,w,S.scen); workers+=w; cases+=r.cases; days+=r.days; baseline+=r.baseline/c.fx;
+    const cls=r.net>=0?"pos":"neg";
+    $("m-"+c.id).innerHTML=`
+      <div><span>Cost of back injuries without Backy (${pl})</span><strong>${money(r.baseline,c.sym)}</strong></div>
+      <div><span>Injury cases prevented</span><strong>${num(r.cases,2)}</strong></div>
+      <div><span>Working days saved</span><strong>${num(r.days,1)}</strong></div>
+      <div><span>Gross savings</span><strong>${money(r.gross,c.sym)}</strong></div>
+      <div><span>Backy cost (${money(r.f.ot,c.sym)} + ${money(r.f.mo,c.sym)}/mo per device)</span><strong>${money(r.cost,c.sym)}</strong></div>
+      <div><span>Net savings</span><strong class="${cls}">${money(r.net,c.sym)}</strong></div>
+      <div><span>ROI</span><strong class="${cls}">${pct(r.roi)}</strong></div>
+      <div><span>Break-even injury reduction</span><strong>${r.beRed>100?"Over 100%":pct(r.beRed)}</strong></div>
+      <div><span>Max monthly fee to break even</span><strong>${r.maxMo>0?money(r.maxMo,c.sym):"Below zero"}</strong></div>`;
+    const max=Math.max(r.sav,r.price)*1.15||1;
+    $("g-"+c.id).innerHTML=`
+      <div class="bar" role="img" aria-label="Savings per wearer ${money(r.sav,c.sym)} versus Backy cost per wearer ${money(r.price,c.sym)}">
+        <div class="fill" style="width:${r.sav/max*100}%;background:${r.sav>=r.price?"var(--gain)":"var(--hivis)"}"></div>
+        <div class="mark" style="left:calc(${r.price/max*100}% - 1px)"></div>
+      </div>
+      <div class="legend"><span>Savings per wearer (${pl}): <b>${money(r.sav,c.sym)}</b></span><span>Backy cost per wearer ▍ ${money(r.price,c.sym)}</span></div>`;
+  });
+  const t=tot[S.scen], net=t.g-t.c, roi=t.c?net/t.c*100:NaN, cls=net>=0?"pos":"neg";
+  $("totals").innerHTML=workers?`
+    <div><div class="big ${cls}">${money(net,"US$")}</div>
+      <div class="cap">Net savings across all countries, ${pl}, ${SCEN[S.scen].name.toLowerCase()} scenario (${S.p[S.scen]}% injury reduction), in USD</div></div>
+    <div class="tgrid">
+      <div><span>Workers wearing Backy</span><strong>${workers.toLocaleString("en")}</strong></div>
+      <div><span>ROI</span><strong class="${cls}">${pct(roi)}</strong></div>
+      <div><span>Gross savings</span><strong>${money(t.g,"US$")}</strong></div>
+      <div><span>Backy cost</span><strong>${money(t.c,"US$")}</strong></div>
+      <div><span>Cases prevented</span><strong>${num(cases,2)}</strong></div>
+      <div><span>Days saved</span><strong>${num(days,0)}</strong></div>
+    </div>
+    <div class="scen-compare">${Object.entries(SCEN).map(([k,v])=>{const n=tot[k].g-tot[k].c;return `<div>${v.name} (${S.p[k]}%)<b class="${n>=0?"pos":"neg"}">${money(n,"US$")}</b></div>`}).join("")}</div>`
+   :`<div><div class="big">Add workers below</div><div class="cap">Totals appear once at least one country has Backy wearers.</div></div>`;
+}
+
+$("copy").onclick=async()=>{
+  const sec=SECTORS.find(s=>s.id===S.sector).name;
+  let lines=[`Backy ROI summary — ${sec}, ${PER[S.per].name}, ${SCEN[S.scen].name} scenario (${S.p[S.scen]}% assumed injury reduction). Pricing: US$${S.usdOt} one-time + US$${S.usdMo}/month per device; Singapore S$${S.sgdOt} + S$${S.sgdMo}/month`];
+  let g=0,c=0;
+  C.forEach(x=>{const w=S.workers[x.id]||0;if(!w)return;const r=calc(x,w,S.scen);g+=r.gross/x.fx;c+=r.cost/x.fx;
+    lines.push(`${x.name}: ${w} workers, savings ${money(r.gross,x.sym)}, cost ${money(r.cost,x.sym)}, net ${money(r.net,x.sym)}, ROI ${pct(r.roi)}, max monthly fee to break even ${r.maxMo>0?money(r.maxMo,x.sym):"below zero"}`)});
+  lines.push(`Total (USD, approx. FX): savings ${money(g,"US$")}, cost ${money(c,"US$")}, net ${money(g-c,"US$")}`);
+  lines.push("Injury-reduction percentages and employer-retained claim costs are assumptions, not proven Backy outcomes.");
+  const txt=lines.join("\n");
+  try{await navigator.clipboard.writeText(txt);$("copyMsg").textContent="Copied to clipboard."}
+  catch(e){const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");$("copyMsg").textContent="Copied to clipboard."}catch(e2){$("copyMsg").textContent="Copy blocked by the browser. Select the figures manually."}ta.remove()}
+};
+
+initControls(); render();
+</script>
+</body>
+</html>
