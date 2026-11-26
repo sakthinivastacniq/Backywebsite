@@ -44,3 +44,10 @@ A review of [SoterCoach](https://www.soter.com/sotercoach), [SoterEHS](https://w
 ## Before replacing backy.ai
 
 Confirm public pilot results and product claims, confirm current unit fit and battery specifications, review the demo-kit security wording, and replace or validate all enquiry destinations and legal pages.
+
+## 2026-11-26: Source-locked HRP and injury financial case studies
+
+- Public `roi-industries.html` no longer permits visitors to edit HRP reduction or the hypothetical HRP-to-injury coefficient. Its fixed conversion remains 40%, solely as a planning sensitivity without clinical validation.
+- The measured values now match the Backy for Safety Teams presentation: logistics 67% fewer HRP events/day, hospitality 29.5% less risky-posture exposure time, healthcare 21.4% less exposure time (and separate 14.5% fewer risky events, 34% fewer forward bends). Other industries remain unmistakably hypothetical.
+- The public dashboard includes legally documented Singapore cases: [2024] SGHC 249 WICA back injury award S$26,200 and [2004] SGHC 100 civil lumbar-disc pain/suffering S$15,000. A checked, opt-in Singapore sensitivity allows using S$26,200 as an illustrative claim severity, not a market average.
+- The financial methodology and insurance page reiterate that court damages, lump-sum compensation, insured claims and company-retained costs are separate buckets. Never claim the 40% HRP-to-injury assumption has been validated or that Backy prevented a documented court case.
