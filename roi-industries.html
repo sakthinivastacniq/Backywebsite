@@ -25,7 +25,7 @@ const COUNTRY_MARKETS=[{"id":"AU","name":"Australia","sign":"A$","day":330,"one"
 // Equal-weighted reference of the six modeled markets, in USD using the same fixed FX rates.
 // Average the annual premium amounts, not the percentages, because insurance systems differ.
 const meanUSD=fn=>COUNTRY_MARKETS.reduce((sum,m)=>sum+fn(m)/m.fx,0)/COUNTRY_MARKETS.length;
-const WORLD_MARKET=Object.freeze({id:"WORLD",name:"Worldwide Average",sign:"US$",fx:1,one:120,mo:10,grossWage2025:meanUSD(m=>m.grossWage2025),premiumPerWorker:meanUSD(m=>m.premiumPerWorker??m.grossWage2025*m.premiumRate),stat:"Worldwide reference: equal-weighted average of the original six reference markets (Australia, United States, Canada, United Kingdom, Germany and Netherlands), shown in US dollars. This is a comparison benchmark, not a measured global population average"});
+const WORLD_MARKET=Object.freeze({id:"WORLD",name:"International Benchmark (Worldwide Average)",sign:"US$",fx:1,one:120,mo:10,grossWage2025:meanUSD(m=>m.grossWage2025),premiumPerWorker:meanUSD(m=>m.premiumPerWorker??m.grossWage2025*m.premiumRate),stat:"International comparison benchmark based on published reference-market economic data, expressed in US dollars. Modelled estimate, not a measured global average."});
 const MARKETS=[WORLD_MARKET,...COUNTRY_MARKETS];
 const FIXED=Object.freeze({hoursPerWorker:2000,workingDaysPerYear:250,workingDaysPerWeek:5,bodyStressingMedianWeeks:9.5,injuryTransfer:0.40,longTermBackPainShare:0.15,painAbsence:0.0696,referenceAbsence:0.0403,painPresenteeism:0.276,referencePresenteeism:0.143,painLossRecovery:0.10,coveredAbsenceShare:0.50,replacementMultiplier:1.25,auditHoursPerTenWorkers:4,auditTimeRecovery:0.25,premiumPassThrough:0.25});
 // All-unit hardware tiers in USD. Use the upper end where a price range was supplied.
@@ -134,7 +134,7 @@ function update(){
  el("orbLabel").textContent=i.measured?(i.id==="logistics"?"Backy logistics pilot":i.id==="healthcare"?"Backy healthcare pilot":"Backy hospitality pilot"):"Potential pilot target";
  el("trialText").textContent=i.measured?(i.id==="logistics"?"Fewer high-risk posture events in a Backy logistics pilot":"Less time in risky postures in a Backy pilot"):"Potential improvement target for a pilot in this industry";
  el("trialBadge").className=i.measured?"evidence-pill":"evidence-pill target";
- el("summary").textContent=format(x.workers)+" employees · "+i.name+" · "+m.name+(m.id==="WORLD"?" (six-market benchmark)":"")+" · "+x.years+"-year outlook";
+ el("summary").textContent=format(x.workers)+" employees · "+i.name+" · "+m.name+" · "+x.years+"-year outlook";
 
 }
 function boot(){
